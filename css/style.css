@@ -35,8 +35,15 @@ body{
 #clock{font-size:15px;letter-spacing:1px;color:var(--warm)}
 #phase{font-size:13px;letter-spacing:3px;opacity:.85}
 
-#statbox{top:14px;right:14px;padding:8px 12px;display:flex;gap:14px;font-size:13px}
+#statbox{top:14px;right:14px;padding:8px 12px;display:flex;gap:14px;align-items:center;font-size:13px}
 #statbox b{color:var(--warm);font-weight:normal;margin-left:2px}
+.stat-btn{
+  font-family:inherit;font-size:12px;color:#fff;
+  background:transparent;border:1px solid var(--chip-line);
+  border-radius:3px;padding:3px 8px;cursor:pointer;
+}
+.stat-btn:hover{background:rgba(255,255,255,.12)}
+.stat-btn:focus-visible{outline:2px solid var(--warm);outline-offset:1px}
 
 #hint{
   bottom:52px;left:50%;transform:translateX(-50%);
@@ -70,6 +77,70 @@ body.is-touch #legend{display:none}
   display:flex;align-items:center;justify-content:center;
 }
 .tbtn:active{background:rgba(255,210,127,.3)}
+.tbtn.small{width:40px;height:40px;font-size:18px;align-self:center}
+
+/* ---------- overlays / panels ---------- */
+.overlay{
+  position:fixed;inset:0;z-index:30;display:none;
+  align-items:center;justify-content:center;
+  background:rgba(4,6,18,.55);backdrop-filter:blur(2px);
+}
+.overlay.open{display:flex}
+.panel{
+  width:min(360px,86vw);color:#f2eee4;
+  background:rgba(14,18,38,.96);
+  border:1px solid var(--chip-line);border-radius:6px;
+  padding:14px;box-shadow:0 8px 40px rgba(0,0,0,.5);
+}
+.panel-head{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:14px;color:var(--warm);letter-spacing:2px;margin-bottom:12px;
+}
+.panel-head .x{
+  background:transparent;border:none;color:#9aa;font-family:inherit;
+  font-size:15px;cursor:pointer;padding:2px 4px;
+}
+.panel-head .x:hover{color:#fff}
+.note{
+  min-height:70px;font-size:14px;line-height:1.7;
+  background:rgba(255,255,255,.05);border-radius:4px;
+  padding:14px;white-space:pre-line;
+  border-left:3px solid var(--chip-line);
+}
+.note.mine{border-left-color:var(--warm);background:rgba(255,210,127,.08)}
+.note .who{display:block;font-size:11px;opacity:.55;margin-top:8px;letter-spacing:1px}
+.note-nav{
+  display:flex;justify-content:center;align-items:center;gap:16px;
+  margin:12px 0;font-size:12px;color:#bcb;
+}
+.note-nav button{
+  background:transparent;border:1px solid var(--chip-line);color:#fff;
+  font-family:inherit;font-size:13px;border-radius:3px;
+  width:34px;height:28px;cursor:pointer;
+}
+.note-nav button:hover{background:rgba(255,255,255,.12)}
+.panel-foot{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:6px}
+.panel-foot button,.note-nav button:focus-visible{outline-offset:1px}
+button.wide{
+  flex:1;font-family:inherit;font-size:13px;color:#1a1e3c;
+  background:var(--warm);border:none;border-radius:3px;
+  padding:9px;cursor:pointer;letter-spacing:1px;
+}
+button.wide:hover{filter:brightness(1.08)}
+button.wide:focus-visible{outline:2px solid #fff;outline-offset:1px}
+.muted{font-size:11px;opacity:.55;white-space:nowrap}
+#noteInput{
+  width:100%;font-family:inherit;font-size:14px;color:#f2eee4;
+  background:rgba(255,255,255,.06);border:1px solid var(--chip-line);
+  border-radius:4px;padding:10px;resize:none;line-height:1.6;margin-bottom:10px;
+}
+#noteInput:focus{outline:1px solid var(--warm)}
+.coll{font-size:13px;line-height:1.9}
+.coll h4{font-size:12px;color:var(--warm);letter-spacing:2px;margin:10px 0 4px;font-weight:normal}
+.coll .row{display:flex;justify-content:space-between;border-bottom:1px dotted rgba(255,255,255,.12);padding:3px 0}
+.coll .tag{display:inline-block;background:rgba(255,210,127,.14);border:1px solid var(--chip-line);
+  border-radius:3px;padding:2px 7px;margin:2px 3px 2px 0;font-size:12px}
+.coll .empty{opacity:.45;font-size:12px}
 
 @media (max-width:560px){
   #clockbox{padding:6px 9px}#clock{font-size:13px}

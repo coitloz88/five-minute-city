@@ -69,3 +69,14 @@ function sfxBlip(f){
   g.gain.setValueAtTime(.06,now); g.gain.exponentialRampToValueAtTime(.001,now+.12);
   o.connect(g).connect(master); o.start(now); o.stop(now+.13);
 }
+
+function sfxDash(){
+  if(!soundOn||!AC) return;
+  const now=AC.currentTime, o=AC.createOscillator(), g=AC.createGain();
+  o.type='sawtooth';
+  o.frequency.setValueAtTime(520,now);
+  o.frequency.exponentialRampToValueAtTime(180,now+.18);
+  g.gain.setValueAtTime(.05,now); g.gain.exponentialRampToValueAtTime(.001,now+.2);
+  const lp=AC.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=900;
+  o.connect(g).connect(lp).connect(master); o.start(now); o.stop(now+.21);
+}

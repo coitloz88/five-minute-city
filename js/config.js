@@ -13,6 +13,13 @@ const WLOOP = 1920;              // 거리(월드) 한 바퀴 길이 = W*4
 
 const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+/* 랜드마크 월드 좌표 (거리 곳곳에 하나씩) */
+const LM = {
+  board:  120,     // 게시판
+  stall:  1040,    // 붕어빵 포장마차 (밤에만 열림)
+};
+const STORE_KEY = 'fmc.notes.v1';   // 플레이어가 남긴 쪽지 저장
+
 /* 전역 게임 상태 — main.js 루프에서 갱신 */
 const GS = {
   elapsed: 0,        // 실제 경과(초)
@@ -25,6 +32,10 @@ const GS = {
   timeScale: 1,
   rain: false,
   wishes: 0, cans: 0,
+  fish: 0,                 // 구운 붕어빵 수
+  constellations: [],      // 완성한 별자리 이름들
+  readNotes: 0,            // 읽은 쪽지 수
+  mode: 'roam',            // roam | stall | sky | board | writing
 };
 
 /* ---------- seeded rng ---------- */
