@@ -58,7 +58,11 @@ function closeOverlay(id){ $(id).classList.remove('open'); }
 function anyOverlayOpen(){ return document.querySelector('.overlay.open')!==null; }
 
 document.querySelectorAll('[data-close]').forEach(b=>
-  b.addEventListener('click',()=>closeOverlay(b.dataset.close)));
+  b.addEventListener('click',()=>{
+    closeOverlay(b.dataset.close);
+    // 오버레이가 모두 닫히면 게임 조작(roam)으로 복귀 — 안 하면 캐릭터가 멈춤
+    if(!anyOverlayOpen() && (GS.mode==='board'||GS.mode==='writing')) GS.mode='roam';
+  }));
 
 /* ---------- 게시판 읽기 ---------- */
 function openBoard(){
@@ -342,8 +346,8 @@ function frame(now){
   GS.now=now; GS.dt=dt;
   GS.elapsed+=dt;
 
-  // sky/stall 모드에서는 캐릭터 이동 정지, 시간은 계속 흐름
-  const roaming = GS.mode==='roam';
+  // sky/stall 모드나 오버레이(수집 패널 등)가 열려 있으면 이동 정지, 시간은 계속 흐름
+  const roaming = GS.mode==='roam' && !anyOverlayOpen();
   GS.dayTime+=dt*GS.timeScale;
   GS.t=(GS.dayTime/DAY+GS.tOff)%1;
   const pal=GS.pal=palette(GS.t);
